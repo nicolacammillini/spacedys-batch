@@ -1,5 +1,8 @@
 import csv
 
+def do_computation(inputline):
+    return inputline
+
 csv.register_dialect('pipe_dialect', delimiter='|')
 
 errors = []
@@ -17,7 +20,7 @@ try:
             # Please note computation is made on lists: no
             # dependencies on input-output format! That is
             # an implementation detail.
-            outputline = inputline
+            outputline = do_computation(inputline)
 
             csvwriter.writerow(outputline)
 
