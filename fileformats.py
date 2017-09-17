@@ -6,13 +6,14 @@ from batches import FileFormatException
 class CSVWriter:
 
     def __init__(self, filename):
-        self.fileobj = open(filename, 'w')
-        self.csvwriter = csv.writer(self.fileobj, delimiter=',')
+        self.filename = filename
 
     def writeline(self, outputline):
         self.csvwriter.writerow(outputline)
 
     def __enter__(self):
+        self.fileobj = open(self.filename, 'w')
+        self.csvwriter = csv.writer(self.fileobj, delimiter=',')
         return self
 
     def __exit__(self, type, value, traceback):
@@ -23,9 +24,8 @@ class CSVPipeReader:
     """ Class implemnting iterator protocol.
         Unregistering of dialect missing"""
     def __init__(self, filename):
+        self.filename =filename
         csv.register_dialect('pipe_dialect', delimiter='|')
-        self.fileobj = open(filename)
-        self.csvreader = csv.reader(self.fileobj, 'pipe_dialect')
 
     def __iter__(self):
         return self
@@ -40,6 +40,8 @@ class CSVPipeReader:
         return next
     
     def __enter__(self):
+        self.fileobj = open(self.filename)
+        self.csvreader = csv.reader(self.fileobj, 'pipe_dialect')
         return self
 
     def __exit__(self, type, value, traceback):
