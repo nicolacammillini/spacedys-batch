@@ -5,7 +5,7 @@ csv.register_dialect('pipe_dialect', delimiter='|')
 errors = []
 
 try:
-    with open('inputfile.csv') as incsvfile, open('outputfile.csv' ,'w') as outcsvfile:
+    with open('inputfile.csv') as incsvfile, open('outputfile.csv', 'w') as outcsvfile:
 
         csvreader = csv.reader(incsvfile, 'pipe_dialect')
         csvwriter = csv.writer(outcsvfile, delimiter=',')
