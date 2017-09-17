@@ -6,11 +6,18 @@ class FileFormatException(Exception):
 
 class CSVWriter:
 
-    def __init__(self, file):
-        self.csvwriter = csv.writer(file, delimiter=',')
+    def __init__(self, filename):
+        self.fileobj = open(filename, 'w')
+        self.csvwriter = csv.writer(self.fileobj, delimiter=',')
 
     def writeline(self, outputline):
         self.csvwriter.writerow(outputline)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, type, value, traceback):
+        return self.fileobj.__exit__(type, value, traceback)
 
 
 class CSVPipeReader:

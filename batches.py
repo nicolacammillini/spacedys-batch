@@ -1,16 +1,15 @@
 from abc import abstractmethod
 
-from fileformats import (FileFormatException, get_reader_for_file,
-                         get_writer_for_file)
+from fileformats import (FileFormatException, get_reader_for_file)
 
 
 class FileBatch:
 
-    def __init__(self, infile, outfile):
+    def __init__(self, infile, filewriter):
         self.observers = []
         self.errors = []
         self.infile = infile
-        self.outfile = outfile
+        self.filewriter = filewriter
 
     def do_computation(self, inputline):
         pass
@@ -18,10 +17,9 @@ class FileBatch:
     def process(self):
 
         try:
-            with open(self.infile) as inputfile, open(self.outfile, 'w') as outputfile:
+            with open(self.infile) as inputfile, self.filewriter as outputfile:
 
                 reader = get_reader_for_file(inputfile)
-                writer = get_writer_for_file(outputfile)
 
                 for inputline in reader:
 
@@ -32,7 +30,7 @@ class FileBatch:
                     # an implementation detail.
                     outputline = self.do_computation(inputline)
 
-                    writer.writeline(outputline)
+                    outputfile.writeline(outputline)
 
                     self.notify_observers()
 
