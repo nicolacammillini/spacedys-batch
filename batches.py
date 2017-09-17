@@ -1,14 +1,13 @@
 from abc import abstractmethod
 
-from fileformats import (FileFormatException, get_reader_for_file)
-
+from fileformats import FileFormatException
 
 class FileBatch:
 
-    def __init__(self, infile, filewriter):
+    def __init__(self, filereader, filewriter):
         self.observers = []
         self.errors = []
-        self.infile = infile
+        self.filereader = filereader
         self.filewriter = filewriter
 
     def do_computation(self, inputline):
@@ -17,11 +16,9 @@ class FileBatch:
     def process(self):
 
         try:
-            with open(self.infile) as inputfile, self.filewriter as outputfile:
+            with self.filereader as inputfile, self.filewriter as outputfile:
 
-                reader = get_reader_for_file(inputfile)
-
-                for inputline in reader:
+                for inputline in inputfile:
 
                     # dummy computation on a line of input:
                     # just writing same line with different format

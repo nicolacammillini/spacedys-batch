@@ -23,9 +23,10 @@ class CSVWriter:
 class CSVPipeReader:
     """ Class implemnting iterator protocol.
         Unregistering of dialect missing"""
-    def __init__(self, file):
+    def __init__(self, filename):
         csv.register_dialect('pipe_dialect', delimiter='|')
-        self.csvreader = csv.reader(file, 'pipe_dialect')
+        self.fileobj = open(filename)
+        self.csvreader = csv.reader(self.fileobj, 'pipe_dialect')
 
     def __iter__(self):
         return self
@@ -38,6 +39,12 @@ class CSVPipeReader:
             raise FileFormatException from csve
 
         return next
+    
+    def __enter__(self):
+        return self
+
+    def __exit__(self, type, value, traceback):
+        return self.fileobj.__exit__(type, value, traceback)
 
 
 def get_reader_for_file(file):

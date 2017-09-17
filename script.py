@@ -1,5 +1,5 @@
 from batches import AbstractObserver, FileBatch
-from fileformats import CSVWriter
+from fileformats import CSVWriter, CSVPipeReader
 
 class MyObserver(AbstractObserver):
 
@@ -14,7 +14,9 @@ class MyFileBatch(FileBatch):
 
 
 filewriter = CSVWriter('outputfile.csv')
-batch = MyFileBatch('inputfile.csv', filewriter)
+filereader = CSVPipeReader('inputfile.csv')
+
+batch = MyFileBatch(filereader, filewriter)
 
 batch.register_observer(MyObserver('One'))
 batch.register_observer(MyObserver('Two'))
