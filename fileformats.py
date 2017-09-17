@@ -1,7 +1,6 @@
 import csv
 
-class FileFormatException(Exception):
-    pass
+from batches import FileFormatException
 
 
 class CSVWriter:
@@ -59,4 +58,3 @@ def get_writer_for_file(file):
         return CSVWriter(file)
     else:
         raise NotImplementedError('Just CSV files named \'outputfile.csv\'')
-

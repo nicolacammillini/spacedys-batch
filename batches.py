@@ -1,6 +1,5 @@
 from abc import abstractmethod
 
-from fileformats import FileFormatException
 
 class FileBatch:
 
@@ -52,3 +51,7 @@ class AbstractObserver:
     @abstractmethod
     def notify(self):
         pass
+
+
+class FileFormatException(Exception):
+    pass
