@@ -1,8 +1,10 @@
 from fileformats import get_reader_for_file, get_writer_for_file, FileFormatException
 
-errors = []
 
 class FileBatch:
+
+    def __init__(self):
+        self.errors = []
 
     def do_computation(self, inputline):
         pass
@@ -27,9 +29,6 @@ class FileBatch:
                     writer.writeline(outputline)
 
         except FileFormatException as ffe:
-            errors.append(ffe)
+            self.errors.append(ffe)
         except IOError as ioe:
-            errors.append(ioe)
-        finally:
-            print('Errors encountered...')
-            print(errors)
+            self.errors.append(ioe)

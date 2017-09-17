@@ -12,3 +12,6 @@ OUTPUTFILE = 'outputfile.csv'
 batch = MyFileBatch()
 
 batch.process(INPUTFILE, OUTPUTFILE)
+
+print('Errors encountered')
+print(batch.errors)
