@@ -1,5 +1,9 @@
 import csv
 
+class FileFormatException(Exception):
+    pass
+
+
 class CSVWriter:
 
     def __init__(self, file):
@@ -20,7 +24,13 @@ class CSVReader:
         return self
 
     def __next__(self):
-        return self.csvreader.__next__()
+        
+        try:
+            next = self.csvreader.__next__()
+        except csv.Error as csve:
+            raise FileFormatException from csve
+
+        return next
 
 
 def get_reader_for_file(file):
@@ -60,8 +70,8 @@ try:
 
             writer.writeline(outputline)
 
-except csv.Error as csveo:
-    errors.append(csveo)
+except FileFormatException as ffe:
+    errors.append(ffe)
 except IOError as ioe:
     errors.append(ioe)
 finally:
