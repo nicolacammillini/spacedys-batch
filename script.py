@@ -1,7 +1,18 @@
 import csv
 
+class CSVWriter:
+
+    def __init__(self, file):
+        self.csvwriter = csv.writer(file, delimiter=',')
+
+    def writeline(self, outputline):
+        self.csvwriter.writerow(outputline)
+
+
 def do_computation(inputline):
     return inputline
+
+
 
 csv.register_dialect('pipe_dialect', delimiter='|')
 
@@ -11,7 +22,7 @@ try:
     with open('inputfile.csv') as incsvfile, open('outputfile.csv', 'w') as outcsvfile:
 
         csvreader = csv.reader(incsvfile, 'pipe_dialect')
-        csvwriter = csv.writer(outcsvfile, delimiter=',')
+        csvwriter = CSVWriter(outcsvfile)
 
         for inputline in csvreader:
 
@@ -22,7 +33,7 @@ try:
             # an implementation detail.
             outputline = do_computation(inputline)
 
-            csvwriter.writerow(outputline)
+            csvwriter.writeline(outputline)
 
 except csv.Error as csveo:
     errors.append(csveo)
