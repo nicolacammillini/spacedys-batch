@@ -1,0 +1,6 @@
+#Visual Studio Code Configuration
+.vscode
+
+#Python virtual environment artifatcs
+venv
+__pycache__
