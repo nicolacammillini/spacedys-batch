@@ -48,15 +48,15 @@ class CSVPipeReader:
         return self.fileobj.__exit__(type, value, traceback)
 
 
-def get_reader_for_file(file):
-    if file.name == 'inputfile.csv':
-        return CSVPipeReader(file)
-    else:
-        raise NotImplementedError('Just CSV files named \'inputfile.csv\'')
+# def get_reader_for_file(file):
+#     if file.name == 'inputfile.csv':
+#         return CSVPipeReader(file)
+#     else:
+#         raise NotImplementedError('Just CSV files named \'inputfile.csv\'')
 
 
-def get_writer_for_file(file):
-    if file.name == 'outputfile.csv':
-        return CSVWriter(file)
-    else:
-        raise NotImplementedError('Just CSV files named \'outputfile.csv\'')
+# def get_writer_for_file(file):
+#     if file.name == 'outputfile.csv':
+#         return CSVWriter(file)
+#     else:
+#         raise NotImplementedError('Just CSV files named \'outputfile.csv\'')
