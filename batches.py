@@ -23,9 +23,9 @@ class FileBatch:
                     # dependencies on input-output format! That is
                     # an implementation detail.
                     outputline = self.do_computation(inputline)
-    
+
                     writer.writeline(outputline)
-    
+
         except FileFormatException as ffe:
             errors.append(ffe)
         except IOError as ioe:

@@ -19,12 +19,12 @@ class CSVPipeReader:
     def __init__(self, file):
         csv.register_dialect('pipe_dialect', delimiter='|')
         self.csvreader = csv.reader(file, 'pipe_dialect')
-    
+
     def __iter__(self):
         return self
 
     def __next__(self):
-        
+
         try:
             next = self.csvreader.__next__()
         except csv.Error as csve:
