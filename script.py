@@ -54,10 +54,10 @@ def do_computation(inputline):
 errors = []
 
 try:
-    with open('inputfile.csv') as incsvfile, open('outputfile.csv', 'w') as outcsvfile:
+    with open('inputfile.csv') as inputfile, open('outputfile.csv', 'w') as outputfile:
 
-        reader = get_reader_for_file(incsvfile)
-        writer = get_writer_for_file(outcsvfile)
+        reader = get_reader_for_file(inputfile)
+        writer = get_writer_for_file(outputfile)
 
         for inputline in reader:
 
