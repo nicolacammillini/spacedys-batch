@@ -5,7 +5,7 @@ errors = []
 class FileBatch:
 
     def do_computation(self, inputline):
-        return inputline
+        pass
 
     def process(self, infile, outfile):
 
