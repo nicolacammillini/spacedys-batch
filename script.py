@@ -6,12 +6,9 @@ class MyFileBatch(FileBatch):
         return inputline
 
 
-INPUTFILE = 'inputfile.csv'
-OUTPUTFILE = 'outputfile.csv'
+batch = MyFileBatch('inputfile.csv', 'outputfile.csv')
 
-batch = MyFileBatch()
-
-batch.process(INPUTFILE, OUTPUTFILE)
+batch.process()
 
 print('Errors encountered')
 print(batch.errors)

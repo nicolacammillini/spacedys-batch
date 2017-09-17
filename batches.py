@@ -3,16 +3,18 @@ from fileformats import get_reader_for_file, get_writer_for_file, FileFormatExce
 
 class FileBatch:
 
-    def __init__(self):
+    def __init__(self, infile, outfile):
         self.errors = []
+        self.infile = infile
+        self.outfile = outfile
 
     def do_computation(self, inputline):
         pass
 
-    def process(self, infile, outfile):
+    def process(self):
 
         try:
-            with open(infile) as inputfile, open(outfile, 'w') as outputfile:
+            with open(self.infile) as inputfile, open(self.outfile, 'w') as outputfile:
 
                 reader = get_reader_for_file(inputfile)
                 writer = get_writer_for_file(outputfile)
