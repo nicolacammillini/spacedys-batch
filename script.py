@@ -1,9 +1,7 @@
-from batches import FileBatch
+from batches import AbstractObserver, FileBatch
 
-class MyObserver():
 
-    def __init__(self, name):
-        self.name = name
+class MyObserver(AbstractObserver):
 
     def notify(self):
         print('Observer {} notified!'.format(self.name))

@@ -1,4 +1,7 @@
-from fileformats import get_reader_for_file, get_writer_for_file, FileFormatException
+from abc import abstractmethod
+
+from fileformats import (FileFormatException, get_reader_for_file,
+                         get_writer_for_file)
 
 
 class FileBatch:
@@ -44,3 +47,13 @@ class FileBatch:
     def notify_observers(self):
         for observer in self.observers:
             observer.notify()
+
+
+class AbstractObserver:
+
+    def __init__(self, name):
+        self.name = name
+
+    @abstractmethod
+    def notify(self):
+        pass
