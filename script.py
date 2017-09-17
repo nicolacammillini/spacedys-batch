@@ -7,27 +7,35 @@ def do_computation(inputline):
 
 errors = []
 
-try:
-    with open('inputfile.csv') as inputfile, open('outputfile.csv', 'w') as outputfile:
+INPUTFILE = 'inputfile.csv'
+OUTPUTFILE = 'outputfile.csv'
 
-        reader = get_reader_for_file(inputfile)
-        writer = get_writer_for_file(outputfile)
+def process_batch(infile, outfile):
 
-        for inputline in reader:
+    try:
+        with open(infile) as inputfile, open(outfile, 'w') as outputfile:
 
-            # dummy computation on a line of input:
-            # just writing same line with different format
-            # Please note computation is made on lists: no
-            # dependencies on input-output format! That is
-            # an implementation detail.
-            outputline = do_computation(inputline)
+            reader = get_reader_for_file(inputfile)
+            writer = get_writer_for_file(outputfile)
 
-            writer.writeline(outputline)
+            for inputline in reader:
 
-except FileFormatException as ffe:
-    errors.append(ffe)
-except IOError as ioe:
-    errors.append(ioe)
-finally:
-    print('Errors encountered...')
-    print(errors)
+                # dummy computation on a line of input:
+                # just writing same line with different format
+                # Please note computation is made on lists: no
+                # dependencies on input-output format! That is
+                # an implementation detail.
+                outputline = do_computation(inputline)
+
+                writer.writeline(outputline)
+
+    except FileFormatException as ffe:
+        errors.append(ffe)
+    except IOError as ioe:
+        errors.append(ioe)
+    finally:
+        print('Errors encountered...')
+        print(errors)
+
+
+process_batch(INPUTFILE, OUTPUTFILE)
