@@ -9,19 +9,30 @@ class CSVWriter:
         self.csvwriter.writerow(outputline)
 
 
+class CSVReader:
+    """ Class implemnting iterator protocol.
+        Unregistering of dialect missing"""
+    def __init__(self, file):
+        csv.register_dialect('pipe_dialect', delimiter='|')
+        self.csvreader = csv.reader(file, 'pipe_dialect')
+    
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        return self.csvreader.__next__()
+
+
 def do_computation(inputline):
     return inputline
 
-
-
-csv.register_dialect('pipe_dialect', delimiter='|')
 
 errors = []
 
 try:
     with open('inputfile.csv') as incsvfile, open('outputfile.csv', 'w') as outcsvfile:
 
-        csvreader = csv.reader(incsvfile, 'pipe_dialect')
+        csvreader = CSVReader(incsvfile)
         csvwriter = CSVWriter(outcsvfile)
 
         for inputline in csvreader:
@@ -42,5 +53,3 @@ except IOError as ioe:
 finally:
     print('Errors encountered...')
     print(errors)
-
-csv.unregister_dialect('pipe_dialect')
