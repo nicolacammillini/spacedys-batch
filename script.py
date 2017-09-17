@@ -37,7 +37,7 @@ def do_computation(inputline):
 errors = []
 
 try:
-    with open('inputfie.csv') as incsvfile, open('outputfile.csv', 'w') as outcsvfile:
+    with open('inputfile.csv') as incsvfile, open('outputfile.csv', 'w') as outcsvfile:
 
         reader = get_reader_for_file(incsvfile)
         csvwriter = CSVWriter(outcsvfile)
