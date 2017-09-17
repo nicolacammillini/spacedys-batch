@@ -23,6 +23,13 @@ class CSVReader:
         return self.csvreader.__next__()
 
 
+def get_reader_for_file(file):
+    if file.name == 'inputfile.csv':
+        return CSVReader(file)
+    else:
+        raise NotImplementedError('Just CSV files named \'inputfile.csv\'')
+
+
 def do_computation(inputline):
     return inputline
 
@@ -30,12 +37,12 @@ def do_computation(inputline):
 errors = []
 
 try:
-    with open('inputfile.csv') as incsvfile, open('outputfile.csv', 'w') as outcsvfile:
+    with open('inputfie.csv') as incsvfile, open('outputfile.csv', 'w') as outcsvfile:
 
-        csvreader = CSVReader(incsvfile)
+        reader = get_reader_for_file(incsvfile)
         csvwriter = CSVWriter(outcsvfile)
 
-        for inputline in csvreader:
+        for inputline in reader:
 
             # dummy computation on a line of input:
             # just writing same line with different format
