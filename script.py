@@ -30,6 +30,13 @@ def get_reader_for_file(file):
         raise NotImplementedError('Just CSV files named \'inputfile.csv\'')
 
 
+def get_writer_for_file(file):
+    if file.name == 'outputfile.csv':
+        return CSVWriter(file)
+    else:
+        raise NotImplementedError('Just CSV files named \'outputfile.csv\'')
+
+
 def do_computation(inputline):
     return inputline
 
@@ -40,7 +47,7 @@ try:
     with open('inputfile.csv') as incsvfile, open('outputfile.csv', 'w') as outcsvfile:
 
         reader = get_reader_for_file(incsvfile)
-        csvwriter = CSVWriter(outcsvfile)
+        writer = get_writer_for_file(outcsvfile)
 
         for inputline in reader:
 
@@ -51,7 +58,7 @@ try:
             # an implementation detail.
             outputline = do_computation(inputline)
 
-            csvwriter.writeline(outputline)
+            writer.writeline(outputline)
 
 except csv.Error as csveo:
     errors.append(csveo)
